@@ -1,0 +1,661 @@
+<HomeScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(20)
+        padding: dp(40)
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        Image:
+            source: "2.png"
+            size_hint: (None, None)
+            size: dp(220), dp(220)
+            pos_hint: {"center_x": 0.5}
+
+        MDLabel:
+            text: "Metafiance"
+            halign: "center"
+            font_size: "40sp"  # Más grande
+            bold: True         # Negrilla
+            italic: True       # Cursiva
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(20)
+            size_hint_y: None
+            height: dp(50)
+            pos_hint: {"center_x": 0.5}  # Centra los botones
+
+            MDRaisedButton:
+                text: "Iniciar Sesión"
+                md_bg_color: 0.1, 0.2, 0.4, 1
+                on_press: root.go_to_login(self)
+            MDRaisedButton:
+                text: "Registrarse"
+                md_bg_color: 0.1, 0.2, 0.4, 1
+
+<LoginScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(15)
+        padding: dp(30)
+
+        Image:
+            source: "2.png"
+            size_hint: (1, 0.2)
+
+        MDLabel:
+            text: "Dios provee, yo administro"
+            halign: "center"
+            theme_text_color: "Secondary"
+
+        MDTextField:
+            id: email
+            hint_text: "Correo"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: password
+            hint_text: "Contraseña"
+            password: True
+            size_hint_y: None
+            height: dp(50)
+
+        MDRaisedButton:
+            text: "Iniciar Sesión"
+            md_bg_color: 0.1, 0.2, 0.4, 1
+            on_press: root.login(self)
+
+        MDRaisedButton:
+            text: "Volver"
+            md_bg_color: 0.4, 0.4, 0.4, 1
+            on_press: root.go_to_home(self)
+
+<RegisterScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(15)
+        padding: dp(30)
+
+        MDLabel:
+            text: "Registro de Usuario"
+            halign: "center"
+            font_style: "H5"
+
+        MDTextField:
+            id: padre
+            hint_text: "Nombre del padre"
+            mode: "rectangle"
+
+        MDTextField:
+            id: estudiante
+            hint_text: "Nombre del estudiante"
+            mode: "rectangle"
+
+        MDTextField:
+            id: email
+            hint_text: "Correo electrónico"
+            mode: "rectangle"
+
+        MDTextField:
+            id: password
+            hint_text: "Contraseña"
+            password: True
+            mode: "rectangle"
+
+        MDRaisedButton:
+            id: curso
+            text: "Seleccionar curso"
+            on_release: root.menu_curso.open()
+
+        MDRaisedButton:
+            id: promocion
+            text: "Seleccionar promoción"
+            on_release: root.menu_promocion.open()
+
+        MDRaisedButton:
+            text: "Registrarme"
+            md_bg_color: 0, 0.3, 0.6, 1
+            on_release: root.register(self)
+
+        MDFlatButton:
+            text: "Volver al inicio"
+            theme_text_color: "Secondary"
+            on_release: root.go_to_home(self)
+
+<AdminPanelScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(20)
+        padding: dp(40)
+
+        MDLabel:
+            text: "Panel de Administrador"
+            halign: "center"
+            font_style: "H5"
+
+        MDRaisedButton:
+            text: "Metas"
+            md_bg_color: 0.1, 0.2, 0.4, 1
+            on_press: root.go_to_metas(self)
+
+        MDRaisedButton:
+            text: "Aportes"
+            md_bg_color: 0.1, 0.2, 0.4, 1
+            on_press: root.go_to_aportes(self)
+
+        MDRaisedButton:
+            text: "Ascenso"
+            md_bg_color: 0.1, 0.2, 0.4, 1
+            on_press: root.go_to_ascenso(self)
+
+        MDRaisedButton:
+            text: "Cerrar Sesión"
+            md_bg_color: 0.4, 0.4, 0.4, 1
+            on_press: root.logout(self)
+
+<MetasScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(15)
+
+        MDLabel:
+            text: "Metas"
+            halign: "center"
+            font_style: "H5"
+
+        ScrollView:
+            MDBoxLayout:
+                id: lista_layout
+                orientation: "vertical"
+                spacing: dp(10)
+                size_hint_y: None
+                height: self.minimum_height
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(50)
+
+            MDRaisedButton:
+                text: "Agregar Meta"
+                md_bg_color: 0.1,0.2,0.5,1
+                text_color: 1,1,1,1
+                on_release: root.agregar_meta(self)
+
+            MDRaisedButton:
+                text: "Volver"
+                md_bg_color: 0.4,0.4,0.4,1
+                text_color: 1,1,1,1
+                on_release: root.go_back(self)
+
+<MetaItem>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: dp(50)
+    spacing: dp(10)
+    padding: dp(5)
+    md_bg_color: 0.95, 0.95, 0.95, 1
+
+    MDLabel:
+        text: str(root.meta_id)
+        size_hint_x: 0.1
+        halign: "center"
+        theme_text_color: "Primary"
+
+    MDLabel:
+        text: root.nombre
+        size_hint_x: 0.3
+        halign: "left"
+        theme_text_color: "Primary"
+
+    MDLabel:
+        text: root.curso
+        size_hint_x: 0.2
+        halign: "center"
+        theme_text_color: "Secondary"
+
+    MDLabel:
+        text: root.fecha
+        size_hint_x: 0.2
+        halign: "center"
+        theme_text_color: "Secondary"
+
+    MDLabel:
+        text: root.costo
+        size_hint_x: 0.2
+        halign: "right"
+        theme_text_color: "Primary"
+
+    MDRaisedButton:
+        text: "Editar"
+        size_hint_x: 0.15
+        md_bg_color: 0.1,0.2,0.5,1
+        text_color: 1,1,1,1
+        on_release: root.editar()
+
+    MDRaisedButton:
+        text: "Eliminar"
+        size_hint_x: 0.15
+        md_bg_color: 0.8,0.1,0.1,1
+        text_color: 1,1,1,1
+        on_release: root.eliminar()
+
+<AgregarMetaScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(15)
+        padding: dp(20)
+
+        MDLabel:
+            text: "Agregar / Editar Meta"
+            halign: "center"
+            font_style: "H5"
+            theme_text_color: "Primary"
+
+        MDTextField:
+            id: nombre
+            hint_text: "Nombre de la meta"
+            mode: "rectangle"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: fecha
+            hint_text: "Fecha (DD/MM/AAAA)"
+            mode: "rectangle"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: costo
+            hint_text: "Costo estimado"
+            mode: "rectangle"
+            size_hint_y: None
+            height: dp(50)
+
+        MDRaisedButton:
+            id: curso_btn
+            text: "Seleccionar curso"
+            md_bg_color: 0.1, 0.2, 0.5, 1
+            text_color: 1,1,1,1
+            size_hint_y: None
+            height: dp(50)
+            on_release: root.menu_curso.open() if root.menu_curso else None
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(50)
+
+            MDRaisedButton:
+                text: "Guardar Meta"
+                md_bg_color: 0.1, 0.2, 0.5, 1
+                text_color: 1,1,1,1
+                on_release: root.guardar_meta(self)
+
+            MDRaisedButton:
+                text: "Volver"
+                md_bg_color: 0.4, 0.4, 0.4, 1
+                text_color: 1,1,1,1
+                on_release: root.go_back(self)
+
+<UsuarioMetasScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(15)
+        spacing: dp(10)
+
+        MDLabel:
+            id: titulo_metas
+            text: f"Gastos {root.usuario[3] if root.usuario else ''}"
+            halign: "center"
+            font_style: "H5"
+
+        MDLabel:
+            id: progreso_label
+            text: ""
+            halign: "center"
+            theme_text_color: "Secondary"
+            size_hint_y: None
+            height: dp(30)
+
+        MDProgressBar:
+            id: progress_bar
+            value: 0
+            size_hint_y: None
+            height: dp(8)
+            color: 0.1, 0.2, 0.5, 1
+
+        ScrollView:
+            size_hint_y: 1
+            MDBoxLayout:
+                id: metas_layout
+                orientation: "vertical"
+                spacing: dp(8)
+                size_hint_y: None
+                height: self.minimum_height
+
+        MDRaisedButton:
+            text: "Volver"
+            md_bg_color: 0.1, 0.2, 0.4, 1
+            text_color: 1,1,1,1
+            size_hint_y: None
+            height: dp(45)
+            on_release: root.go_back(self)
+
+<MetaDetalleScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(15)
+        spacing: dp(10)
+
+        MDLabel:
+            id: meta_nombre
+            text: ""
+            halign: "center"
+            font_style: "H5"
+
+        MDLabel:
+            id: meta_fecha
+            text: ""
+            halign: "center"
+            theme_text_color: "Secondary"
+            size_hint_y: None
+            height: dp(25)
+
+        MDLabel:
+            id: meta_total
+            text: ""
+            halign: "center"
+            theme_text_color: "Secondary"
+            size_hint_y: None
+            height: dp(25)
+
+        MDProgressBar:
+            id: progress_bar_meta
+            value: 0
+            size_hint_y: None
+            height: dp(8)
+            color: 0.1, 0.2, 0.5, 1
+
+        MDBoxLayout:
+            id: acciones_layout
+            orientation: "vertical"
+            spacing: dp(8)
+            size_hint_y: None
+            height: self.minimum_height
+
+            MDRaisedButton:
+                text: "Registrar ahorro"
+                md_bg_color: 0.1, 0.2, 0.5, 1
+                text_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(45)
+                on_release: root.ir_registrar_ahorro(self)
+
+            MDRaisedButton:
+                text: "Registrar salida"
+                md_bg_color: 0.1, 0.2, 0.5, 1
+                text_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(45)
+                on_release: root.ir_registrar_salida(self)
+
+            MDRaisedButton:
+                text: "Historial"
+                md_bg_color: 0.1, 0.2, 0.5, 1
+                text_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(45)
+                on_release: root.ir_historial(self)
+
+            MDRaisedButton:
+                text: "Detalle del plan"
+                md_bg_color: 0.1, 0.2, 0.5, 1
+                text_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(45)
+                on_release: root.ir_detalle_plan(self)
+
+            MDRaisedButton:
+                text: "Volver"
+                md_bg_color: 0.4, 0.4, 0.4, 1
+                text_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(45)
+                on_release: root.volver_curso(self)
+
+<RegistrarAhorroScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(15)
+
+        MDLabel:
+            text: "Registrar Ahorro"
+            halign: "center"
+            font_style: "H5"
+
+        MDTextField:
+            id: monto
+            hint_text: "Monto a ahorrar"
+            mode: "rectangle"
+            size_hint_y: None
+            height: dp(50)
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(50)
+
+            MDRaisedButton:
+                text: "Guardar"
+                md_bg_color: 0.1, 0.2, 0.5, 1
+                text_color: 1,1,1,1
+                on_release: root.guardar()
+
+            MDRaisedButton:
+                text: "Volver"
+                md_bg_color: 0.4, 0.4, 0.4, 1
+                text_color: 1,1,1,1
+                on_release: root.volver_meta()
+
+<RegistrarSalidaScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(15)
+
+        MDLabel:
+            text: "Registrar Salida"
+            halign: "center"
+            font_style: "H5"
+
+        MDTextField:
+            id: monto
+            hint_text: "Monto de salida"
+            mode: "rectangle"
+            size_hint_y: None
+            height: dp(50)
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(50)
+
+            MDRaisedButton:
+                text: "Guardar"
+                md_bg_color: 0.1,0.2,0.5,1
+                text_color: 1,1,1,1
+                on_release: root.guardar()
+
+            MDRaisedButton:
+                text: "Volver"
+                md_bg_color: 0.4,0.4,0.4,1
+                text_color: 1,1,1,1
+                on_release: root.volver_meta()
+
+<HistorialScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(15)
+
+        MDLabel:
+            text: "Historial de Movimientos"
+            halign: "center"
+            font_style: "H5"
+
+        ScrollView:
+            MDGridLayout:
+                id: lista
+                cols: 1
+                adaptive_height: True
+                spacing: dp(5)
+                padding: dp(5)
+
+        MDRaisedButton:
+            text: "Volver"
+            md_bg_color: 0.4,0.4,0.4,1
+            text_color: 1,1,1,1
+            on_release: root.volver_meta()
+
+<DetallePlanScreen>:
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(20)
+
+        MDLabel:
+            text: "Detalle del Plan"
+            halign: "center"
+            font_style: "H4"
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(20)
+            spacing: dp(15)
+            radius: [12,]
+            elevation: 6
+
+            MDLabel:
+                id: meta_nombre
+                text: "Nombre de la meta"
+                halign: "center"
+                font_style: "H6"
+
+            MDLabel:
+                id: meta_fecha
+                text: "Fecha límite"
+                halign: "center"
+                font_style: "Subtitle1"
+
+            MDLabel:
+                id: meta_costo
+                text: "Costo: $0"
+                halign: "center"
+                font_style: "Body1"
+
+            MDLabel:
+                id: meta_ahorrado
+                text: "Ahorrado: $0"
+                halign: "center"
+                font_style: "Body1"
+
+            MDLabel:
+                id: meta_faltante
+                text: "Faltante: $0"
+                halign: "center"
+                font_style: "Body1"
+
+        MDRaisedButton:
+            text: "Volver"
+            md_bg_color: 0.05, 0.1, 0.3, 1
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(48)
+            pos_hint: {"x": 0}
+            on_release: root.volver_meta()
